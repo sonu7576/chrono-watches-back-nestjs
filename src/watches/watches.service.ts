@@ -17,8 +17,15 @@ export class WatchesService {
 
 //   get all watches
 
-  async getAllWatches() {
-    return this.watchesModel.find().exec();
+  
+
+
+  async getAllWatches(search?: string): Promise<Watches[]> { 
+    const query = search
+      ? { watchname: { $regex: search, $options: 'i' } }
+      : {};
+
+    return this.watchesModel.find(query).exec();
   }
 
 //   edit 
